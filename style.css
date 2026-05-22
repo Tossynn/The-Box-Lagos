@@ -126,7 +126,7 @@
       color: #fff;
       background:
         linear-gradient(90deg, rgba(13, 12, 11, 0.86), rgba(13, 12, 11, 0.46), rgba(13, 12, 11, 0.18)),
-        url("images/hero1.jpeg") center/cover;
+        url("images/hero1-1.png") center/cover;
     }
 
     .hero::after {

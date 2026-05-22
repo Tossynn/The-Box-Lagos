@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Box Lagos | Car Wash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="wash.css">
+</head>
+<body>
+  <header class="site-header" aria-label="Primary">
+    <a class="brand" href="index.html" aria-label="Back to The Box Lagos home">
+      <img class="brand-logo" src="images/logo.jpeg" alt="The Box Lagos logo">
+      <span>The Box Lagos</span>
+    </a>
+    <nav class="nav-links" aria-label="Car wash page navigation">
+      <a href="index.html">Home</a>
+      <a href="#booking">Book wash</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="The Box Lagos car wash">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Premium Car Wash Studio</p>
+        <h1>The Box Lagos Car Wash</h1>
+        <p class="hero-copy">
+          Detail-focused wash care for daily drivers, SUVs, trucks, buses, and special arrivals that deserve the full clean-room treatment.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#booking">Book a wash</a>
+          <a class="button secondary" href="#services">View services</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="booking-section" id="booking" aria-label="Book a car wash">
+      <div class="booking-layout">
+        <div class="booking-copy">
+          <p class="eyebrow">Reserve your slot</p>
+          <h2>Book your car wash service.</h2>
+          <p>
+            Select your service, vehicle type, preferred date, and arrival time. The team will prepare the bay before you roll in.
+          </p>
+          <div class="booking-points" aria-label="Booking benefits">
+            <span>Same-day friendly</span>
+            <span>Detail crew assigned</span>
+            <span>Fast arrival check-in</span>
+          </div>
+        </div>
+
+        <form class="booking-form" id="bookingForm">
+          <div class="form-row two-column">
+            <label>
+              Full name
+              <input type="text" name="fullName" placeholder="Your name" required>
+            </label>
+            <label>
+              Phone number
+              <input type="tel" name="phone" placeholder="+234" required>
+            </label>
+          </div>
+
+          <div class="form-row two-column">
+            <label>
+              Service
+              <select name="service" required>
+                <option value="">Select service</option>
+                <option>Full Body Wash</option>
+                <option>Underneath Wash</option>
+                <option>Engine Wash</option>
+                <option>Tokunbo Wash</option>
+              </select>
+            </label>
+            <label>
+              Vehicle type
+              <select name="vehicleType" required>
+                <option value="">Select vehicle</option>
+                <option>Car</option>
+                <option>SUV</option>
+                <option>Truck</option>
+                <option>Bus</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="form-row two-column">
+            <label>
+              Date
+              <input type="date" name="date" required>
+            </label>
+            <label>
+              Time
+              <input type="time" name="time" required>
+            </label>
+          </div>
+
+          <label>
+            Notes
+            <textarea name="notes" rows="4" placeholder="Anything we should know about the vehicle?"></textarea>
+          </label>
+
+          <button class="button primary form-button" type="submit">Confirm booking</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="services-band" id="services" aria-label="Car wash services">
+      <div class="section-inner">
+        <div class="section-heading">
+          <p class="eyebrow">Wash menu</p>
+          <h2>Choose the finish your vehicle needs.</h2>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <span>01</span>
+            <h3>Full Body Wash</h3>
+            <p>Exterior shampoo, rinse, wheel attention, and a polished dry down.</p>
+          </article>
+          <article class="service-card">
+            <span>02</span>
+            <h3>Underneath Wash</h3>
+            <p>Targeted lower-body rinse for road grime, dust, and rainy-season buildup.</p>
+          </article>
+          <article class="service-card">
+            <span>03</span>
+            <h3>Engine Wash</h3>
+            <p>Careful engine bay cleaning for a fresher, cleaner compartment.</p>
+          </article>
+          <article class="service-card">
+            <span>04</span>
+            <h3>Tokunbo Wash</h3>
+            <p>A deeper refresh for newly imported vehicles before they hit Lagos roads.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <p>The Box Lagos Car Wash</p>
+    <p>Dodge Challenger hero image: CC0 via Wikimedia Commons.</p>
+  </footer>
+
+  <script src="wash.js"></script>
+</body>
+</html>

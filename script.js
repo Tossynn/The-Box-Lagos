@@ -2,6 +2,8 @@
   const reservationForm = document.querySelector(".reservation-form");
   const dateInput = document.querySelector('input[name="date"]');
   const navLinks = document.querySelectorAll(".nav-links a");
+  const navMenu = document.querySelector("#navLinks");
+  const navToggle = document.querySelector(".nav-toggle");
   const sections = document.querySelectorAll("main section[id]");
   const revealItems = document.querySelectorAll(".reveal-on-scroll");
   const menuCards = document.querySelectorAll(".menu-card");
@@ -116,6 +118,22 @@
     const timezoneOffset = today.getTimezoneOffset() * 60000;
     const localDate = new Date(today - timezoneOffset).toISOString().split("T")[0];
     dateInput.min = localDate;
+  }
+
+  if (navToggle && navMenu) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = navMenu.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+      navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        navMenu.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open navigation menu");
+      });
+    });
   }
 
   if (reservationForm) {

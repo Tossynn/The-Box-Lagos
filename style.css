@@ -244,6 +244,90 @@
       gap: 18px;
     }
 
+    .order-form {
+      margin: 0 0 28px;
+      padding: 28px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .order-form[hidden] {
+      display: none;
+    }
+
+    .order-add-field {
+      display: flex;
+      align-items: end;
+    }
+
+    .order-add {
+      width: 100%;
+      color: var(--wine);
+      border-color: rgba(123, 30, 43, 0.24);
+      background: rgba(123, 30, 43, 0.08);
+    }
+
+    .order-items {
+      min-height: 74px;
+      padding: 16px;
+      border: 1px dashed rgba(123, 30, 43, 0.28);
+      background: rgba(123, 30, 43, 0.05);
+    }
+
+    .order-items p,
+    .order-items ul {
+      margin: 0;
+    }
+
+    .order-items p {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .order-items ul {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .order-items li {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 4px 14px;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .order-items li:last-child {
+      border-bottom: 0;
+    }
+
+    .order-items span {
+      font-weight: 800;
+    }
+
+    .order-items small {
+      grid-column: 1;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .order-items button {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      border: 0;
+      color: var(--wine);
+      background: transparent;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
     .menu-card,
     .event-card,
     .contact-panel,

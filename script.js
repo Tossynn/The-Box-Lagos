@@ -6,6 +6,110 @@
   const revealItems = document.querySelectorAll(".reveal-on-scroll");
   const menuCards = document.querySelectorAll(".menu-card");
   const backToTopButton = document.querySelector(".back-to-top");
+  const orderToggle = document.querySelector("#orderToggle");
+  const orderForm = document.querySelector("#orderPanel");
+  const orderCategory = document.querySelector("#orderCategory");
+  const orderItem = document.querySelector("#orderItem");
+  const orderQuantity = document.querySelector('input[name="orderQuantity"]');
+  const addOrderItem = document.querySelector("#addOrderItem");
+  const orderItems = document.querySelector("#orderItems");
+  const selectedOrderItems = [];
+
+  const menuItemsByCategory = {
+    "Breakfast & Salads": [
+      "Akara",
+      "Ceasar Salad",
+      "Pancake",
+      "Healthy",
+      "Breakfast Platter",
+      "Continental",
+      "Homegrown Delight",
+      "Greek Salad",
+      "Seafood Noodles",
+      "Waffles",
+      "Chicken Wrap",
+      "Chicken Sandwich",
+    ],
+    "The Box Starters & Sides": [
+      "Crunchy Chicken Wings",
+      "Gizdodo",
+      "Fried Yam",
+      "Beef Kebab",
+      "Chicken Kebab",
+      "Crunchy Prawns",
+      "Shrimp French Fries",
+      "The Box Burger",
+      "Spring Rolls and Samosa",
+      "Sides",
+    ],
+    "Grills & Peppered Options": [
+      "Grilled Tilapia",
+      "Grilled Turkey",
+      "Grilled Catfish",
+      "Grilled Croaker",
+      "Grilled Chicken Thigh",
+      "Peppered Turkey",
+      "Peppered Snail",
+      "Peppered Gizzard",
+      "Peppered Chicken Thighs",
+      "Peppered Goat Meat",
+      "Peppered Chicken Wings",
+      "Peppered Beef",
+    ],
+    "Peppersoups & Swallow": [
+      "Catfish Peppersoup",
+      "Croaker Peppersoup",
+      "Goat Meat Peppersoup",
+      "Chicken Peppersoup",
+      "Turkey Peppersoup",
+      "Seafood Peppersoup",
+      "Swallow",
+    ],
+    "Soups & Sea Finish": [
+      "Seafood Okro",
+      "Fisherman Soup",
+      "White Soup",
+      "Seafood Egusi",
+      "Afang Soup",
+      "Assorted",
+      "Vegetable Soup",
+      "Ogbono Soup",
+      "Oha Soup",
+      "Seafood Boil",
+      "Prawns Tempura",
+    ],
+    Grains: [
+      "Seafood Alfredo Pasta",
+      "Hot Penne Pasta",
+      "Stir Fry Spaghetti",
+      "Chicken Wings Spaghetti",
+      "Spaghetti Bolognese",
+      "Special Fried Rice",
+      "Pork-Meal Rice",
+      "Turkey Rice",
+      "Shredded Chicken Jollof",
+      "Village Rice",
+      "Jambalaya Rice",
+      "Herb Rice and Chicken Curry Sauce",
+    ],
+    "Platters & Buffets": [
+      "The Box Platter",
+      "Grill Platter",
+      "Chicken Rice Royal Platter",
+      "Pastries Platter",
+      "Classic Buffet",
+      "Premium Buffet",
+      "Luxury Buffet",
+    ],
+    "Drinks Menu": [
+      "Whiskey",
+      "Tequila & Cognac",
+      "Champagne, Wine & Vodka",
+      "Cocktails & Mocktails",
+      "Beer, Gin, Shots & Rum",
+      "Soft Drinks, Coffee & Tea",
+    ],
+  };
 
   if (dateInput) {
     const today = new Date();
@@ -43,6 +147,123 @@
         const today = new Date();
         const timezoneOffset = today.getTimezoneOffset() * 60000;
         dateInput.min = new Date(today - timezoneOffset).toISOString().split("T")[0];
+      }
+    });
+  }
+
+  if (orderToggle && orderForm) {
+    const orderMessage = document.createElement("p");
+    orderMessage.className = "form-message";
+    orderMessage.setAttribute("role", "status");
+    orderMessage.hidden = true;
+    orderForm.appendChild(orderMessage);
+
+    const renderOrderItems = () => {
+      if (!orderItems) return;
+
+      if (!selectedOrderItems.length) {
+        orderItems.innerHTML = "<p>No items added yet.</p>";
+        return;
+      }
+
+      const listItems = selectedOrderItems.map((entry, index) => `
+        <li>
+          <span>${entry.quantity} x ${entry.item}</span>
+          <small>${entry.category}</small>
+          <button type="button" data-remove-order-item="${index}" aria-label="Remove ${entry.item}">Remove</button>
+        </li>
+      `).join("");
+
+      orderItems.innerHTML = `<ul>${listItems}</ul>`;
+    };
+
+    orderToggle.addEventListener("click", () => {
+      orderForm.hidden = false;
+      orderToggle.setAttribute("aria-expanded", "true");
+      orderForm.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    if (orderCategory && orderItem) {
+      orderCategory.addEventListener("change", () => {
+        const selectedItems = menuItemsByCategory[orderCategory.value] || [];
+        orderItem.innerHTML = "";
+
+        const placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = selectedItems.length ? "Select item" : "Select a category first";
+        orderItem.appendChild(placeholder);
+
+        selectedItems.forEach((item) => {
+          const option = document.createElement("option");
+          option.textContent = item;
+          orderItem.appendChild(option);
+        });
+
+        orderItem.disabled = selectedItems.length === 0;
+      });
+    }
+
+    if (addOrderItem && orderCategory && orderItem && orderQuantity) {
+      addOrderItem.addEventListener("click", () => {
+        if (!orderCategory.value || !orderItem.value || !orderQuantity.value) {
+          orderMessage.textContent = "Choose a category, item, and quantity before adding to the order.";
+          orderMessage.hidden = false;
+          return;
+        }
+
+        selectedOrderItems.push({
+          category: orderCategory.value,
+          item: orderItem.value,
+          quantity: orderQuantity.value,
+        });
+
+        orderCategory.value = "";
+        orderItem.innerHTML = '<option value="">Select a category first</option>';
+        orderItem.disabled = true;
+        orderQuantity.value = "1";
+        orderMessage.hidden = true;
+        renderOrderItems();
+      });
+    }
+
+    if (orderItems) {
+      orderItems.addEventListener("click", (event) => {
+        const removeButton = event.target.closest("[data-remove-order-item]");
+        if (!removeButton) return;
+
+        selectedOrderItems.splice(Number(removeButton.dataset.removeOrderItem), 1);
+        renderOrderItems();
+      });
+    }
+
+    orderForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (!selectedOrderItems.length) {
+        orderMessage.textContent = "Please add at least one item to your order before submitting.";
+        orderMessage.hidden = false;
+        return;
+      }
+
+      if (!orderForm.checkValidity()) {
+        orderForm.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(orderForm);
+      const name = formData.get("orderName");
+      const payment = formData.get("paymentOption");
+      const orderSummary = selectedOrderItems.map((entry) => `${entry.quantity} x ${entry.item}`).join(", ");
+
+      orderMessage.textContent = `Thank you, ${name}. Your order for ${orderSummary} has been received. Payment option: ${payment}.`;
+      orderMessage.hidden = false;
+      orderForm.reset();
+      selectedOrderItems.length = 0;
+      renderOrderItems();
+
+      if (orderItem) {
+        orderItem.innerHTML = '<option value="">Select a category first</option>';
+        orderItem.disabled = true;
       }
     });
   }

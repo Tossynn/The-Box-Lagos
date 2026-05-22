@@ -24,7 +24,7 @@
         <a href="#reserve">Reserve</a>
         <a href="#contact">Contact</a>
       </div>
-      <a class="btn btn-primary" href="#reserve">Book a Table</a>
+      <button class="btn btn-primary" type="button" id="orderToggle" aria-controls="orderPanel" aria-expanded="false">Place an order</button>
     </nav>
   </header>
 
@@ -50,6 +50,61 @@
           <h2>Menu</h2>
         </div>
         <p class="menu-note reveal-on-scroll">Prices are available at the restaurant. <a href="TheBoxLagos_Rev. Menu.pdf" target="_blank" rel="noreferrer">Open the full revised menu PDF</a>.</p>
+        <form class="order-form reveal-on-scroll" id="orderPanel" hidden>
+          <div class="form-grid">
+            <label>
+              Full name
+              <input type="text" name="orderName" placeholder="Your name" required />
+            </label>
+            <label>
+              Phone number
+              <input type="tel" name="orderPhone" placeholder="+234" required />
+            </label>
+            <label>
+              Menu category
+              <select name="orderCategory" id="orderCategory">
+                <option value="">Select category</option>
+                <option>Breakfast &amp; Salads</option>
+                <option>The Box Starters &amp; Sides</option>
+                <option>Grills &amp; Peppered Options</option>
+                <option>Peppersoups &amp; Swallow</option>
+                <option>Soups &amp; Sea Finish</option>
+                <option>Grains</option>
+                <option>Platters &amp; Buffets</option>
+                <option>Drinks Menu</option>
+              </select>
+            </label>
+            <label>
+              Menu item
+              <select name="orderItem" id="orderItem" disabled>
+                <option value="">Select a category first</option>
+              </select>
+            </label>
+            <label>
+              Quantity
+              <input type="number" name="orderQuantity" min="1" value="1" />
+            </label>
+            <div class="order-add-field">
+              <button class="btn btn-secondary order-add" type="button" id="addOrderItem">Add item</button>
+            </div>
+            <div class="order-items span-2" id="orderItems" aria-live="polite">
+              <p>No items added yet.</p>
+            </div>
+            <label>
+              Payment option
+              <select name="paymentOption" required>
+                <option value="">Select payment option</option>
+                <option>Debit Card</option>
+                <option>Bank Transfer</option>
+              </select>
+            </label>
+            <label class="span-2">
+              Order notes
+              <textarea name="orderNotes" placeholder="Pickup time, spice level, allergies, or delivery notes"></textarea>
+            </label>
+          </div>
+          <button class="btn btn-primary form-submit" type="submit">Submit Order</button>
+        </form>
         <div class="menu-grid">
           <article class="menu-card reveal-on-scroll">
             <h3>Breakfast &amp; Salads</h3>

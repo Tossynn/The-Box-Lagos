@@ -720,7 +720,7 @@
 
     @media (max-width: 620px) {
       .hero {
-        min-height: 760;
+        min-height: 760px;
         padding-top: 92px;
         padding-bottom: 52px;
       }
@@ -749,6 +749,7 @@
       .hero-actions {
         width: 100%;
         max-width: 360px;
+        padding-top: 30px;
       }
 
       .brand span:last-child {
